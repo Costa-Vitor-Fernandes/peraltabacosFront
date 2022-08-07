@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -18,8 +22,17 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+    position: absolute;
+    width: 100%;
+    background-color: aqua;
   }
   body {
+    background-color: aqua;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    padding: 0;
+    margin: 0;
     color: white;
     background: black;
   }
