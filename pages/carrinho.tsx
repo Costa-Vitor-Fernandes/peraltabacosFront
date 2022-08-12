@@ -5,7 +5,7 @@ interface ProdutoNoCarrinhoProps {
 }
 
 const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
-    return (<div className="flex bg-gray-100 justify-between rounded p-3 m-4">
+    return (<div className="flex bg-gray-200 justify-between rounded p-3 m-4">
         <div>produto nome:{props.name} de preco:{props.price}</div> 
         <div className="bg-red-500 shadow-md px-1">x</div>
         </div>)
@@ -16,7 +16,7 @@ const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
 
 const Carrinho = () =>{
     return <div className="flex flex-col bg-white shadow-lg m-4 p-2 rounded">
-        <p>Pagina do Carrinho</p>
+    
         
         <div className="flex flex-col bg-gray-300 rounded shadow-sm">
             

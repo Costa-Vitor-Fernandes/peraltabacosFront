@@ -17,17 +17,17 @@ const CardProduto = (props:CardProdutoProps) =>{
 
 const [discount,setDiscount] = useState<number>()
 
-  return (<div className="flex justify-center bg-slate-300 p-1 m-2 rounded-[2.5rem] shadow-md h-64 w-64">
+  return (<div className="flex justify-center bg-slate-300 p-1 m-2 rounded-[2.5rem] shadow-md h-84 w-64">
     <div className="flex flex-col bg-white w-60 rounded-[2.5rem] ">
     <div className="shadow-lg h-28 w-28 self-center rounded-[1rem] mt-2"><Image className=' rounded-[1rem]' src={props.imgSrc} alt={props.imgSrc} width={500} height={500}></Image></div>
     <a className="self-center hover:text-indigo-600 pt-2">{props.productName}</a>
     <div className="text-gray-400 pl-4 line-through">R${props.originalPrice}</div>
     <div className="flex flex-row pl-4">
     <div className="mr-2">R${props.price}</div>
-    <div className="text-white bg-red-500 text-center w-16 rounded-[0.5rem]">-R${props.discount}</div>
+    <div className=" flex justify-center self-center items-center text-white bg-red-500 text-center w-16 rounded-[0.5rem]">-R${props.discount}</div>
     </div>
     {/* missing handlers and state for handlers */}
-    <div className="w-32 rounded-[0.5rem] self-center mt-2 h-8 justify-center text-white bg-indigo-500 hover:bg-indigo-300 text-center">COMPRAR</div>
+    <div className="w-32 rounded-[0.5rem] flex justify-center self-center items-center my-2 h-8  bg-indigo-500 hover:bg-indigo-300"><p className='text-white'>COMPRAR</p></div>
     </div>
     </div>)
 }
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
       setTimeout(()=>{
 
         setPrice(data.map((e:any,i:any,arr:any)=>arr[i].originalPrice-arr[i].discount))
-      }, 100)
+      },50)
     })  
   }
  function allcards(){
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
   
   imgSrc.forEach((v:string,i:number,arr:string[])=>{
     
-    return response.push(<CardProduto imgSrc={arr[i]} productName={productName[i]} originalPrice={originalPrice[i]} price={price[i]} discount={discount[i]} />)
+    return response.push(<CardProduto imgSrc={arr[i]} productName={productName[i]} originalPrice={originalPrice[i]} price={price[i]} discount={discount[i]} key={i} />)
   })    
   return response
 }
@@ -109,8 +109,8 @@ const Home: NextPage = () => {
       <div className="justify-center self-center align-center content-center flex">
         <input type="text" className="rounded-full pl-6 flex-row bg-gray-100 w-80 mt-2" placeholder='Pesquisar Produto'></input>
       </div>
-      <div className='flex flex-row justify-center overflow-auto'>
-      {fetchPort? allcards(): <p>deu ruim</p>}
+      <div className='flex sm:flex-row flex-col mt-4 justify-center items-center overflow-auto'>
+      {fetchPort? allcards(): <p className='bg-red-500 rounded-full px-2 mt-10 py-10 align-center'>Estamos fechados</p>}
  
 
       </div>
