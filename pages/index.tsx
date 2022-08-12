@@ -2,37 +2,32 @@ import axios from 'axios'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
+type CardProdutoProps ={ 
+  imgSrc:string,
+  productName:string,
+  originalPrice:number,
+  price:number,
+  discount:number
+}
 
-const CardProduto = () =>{
+const CardProduto = (props:CardProdutoProps) =>{
 
-  const [imgSrc, setImgSrc] = useState<string>('/tabear.jpeg')
-  const [productName, setProductName] = useState<string>('TABEAR 25GRAMAS')
-  const [originalPrice, setOriginalPrice] = useState<number>(12.99)
-  const [price, setPrice] = useState<number>(9.98)
-  const [discount, setDiscount] = useState<number>(3.01)
+const [discount,setDiscount] = useState<number>()
 
-  useEffect(()=>{
-    axios.get('http://localhost:3002/product').then((res)=>console.log(res.data))
-    // save the database data to states and map the components, CardProduto e Categoria
-  },)
-
-
-
-
-  return (<div className="flex justify-center bg-slate-300 p-1 m-2 rounded-[2.5rem] shadow-md h-64 w-64">
+  return (<div className="flex justify-center bg-slate-300 p-1 m-2 rounded-[2.5rem] shadow-md h-84 w-64">
     <div className="flex flex-col bg-white w-60 rounded-[2.5rem] ">
-    <div className="shadow-lg h-28 w-28 self-center rounded-[1rem] mt-2"><Image className=' rounded-[1rem]' src={imgSrc} alt={imgSrc} width={500} height={500}></Image></div>
-    <a className="self-center hover:text-indigo-600 pt-2">{productName}</a>
-    <div className="text-gray-400 pl-4 line-through">R${originalPrice}</div>
+    <div className="shadow-lg h-28 w-28 self-center rounded-[1rem] mt-2"><Image className=' rounded-[1rem]' src={props.imgSrc} alt={props.imgSrc} width={500} height={500}></Image></div>
+    <a className="self-center hover:text-indigo-600 pt-2">{props.productName}</a>
+    <div className="text-gray-400 pl-4 line-through">R${props.originalPrice}</div>
     <div className="flex flex-row pl-4">
-    <div className="mr-2">R${price}</div>
-    <div className="text-white bg-red-500 text-center w-16 rounded-[0.5rem]">-R${discount}</div>
+    <div className="mr-2">R${props.price}</div>
+    <div className=" flex justify-center self-center items-center text-white bg-red-500 text-center w-16 rounded-[0.5rem]">-R${props.discount}</div>
     </div>
     {/* missing handlers and state for handlers */}
-    <div className="w-32 rounded-[0.5rem] self-center mt-2 h-8 justify-center text-white bg-indigo-500 hover:bg-indigo-300 text-center">COMPRAR</div>
+    <div className="w-32 rounded-[0.5rem] flex justify-center self-center items-center my-2 h-8  bg-indigo-500 hover:bg-indigo-300"><p className='text-white'>COMPRAR</p></div>
     </div>
     </div>)
 }
@@ -44,6 +39,52 @@ const Categoria = () =>{
 
 
 const Home: NextPage = () => {
+
+
+  const [imgSrc, setImgSrc] = useState<string[]>([])
+  const [productName, setProductName] = useState<string[]>([])
+  const [originalPrice, setOriginalPrice] = useState<number[]>([])
+  const [price, setPrice] = useState<number[]>([])
+  const [discount, setDiscount] = useState<number[]>([])
+  const [fetchPort, setFetchPort] = useState<boolean>(false)
+
+  useEffect(()=>{
+    setProducts()
+    // setCategoria()
+  },[])
+
+  function setCategoria(){
+    //setCategoria
+  }
+
+  function setProducts() {
+    axios.get('http://localhost:3002/product').then((res)=>{
+      const data = res.data
+      console.log(data, 'data')
+      setImgSrc(data.map((e:any,i:any,arr:any)=>arr[i].photo))
+      setProductName(data.map((e:any,i:any,arr:any)=>arr[i].productName))
+      setOriginalPrice(data.map((e:any,i:any,arr:any)=>arr[i].originalPrice))
+      setDiscount(data.map((e:any,i:any,arr:any)=>arr[i].discount))
+      setFetchPort(true)
+      setTimeout(()=>{
+
+        setPrice(data.map((e:any,i:any,arr:any)=>arr[i].originalPrice-arr[i].discount))
+      },50)
+    })  
+  }
+ function allcards(){
+  const response:any = []
+  
+  imgSrc.forEach((v:string,i:number,arr:string[])=>{
+    
+    return response.push(<CardProduto imgSrc={arr[i]} productName={productName[i]} originalPrice={originalPrice[i]} price={price[i]} discount={discount[i]} key={i} />)
+  })    
+  return response
+}
+  
+  
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -62,30 +103,16 @@ const Home: NextPage = () => {
         {/* .map(<Categoria>) */}
         <div className='flex flex-row overflow-auto'>
         <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
-        <Categoria></Categoria>
+
         </div>
       </div>
       <div className="justify-center self-center align-center content-center flex">
         <input type="text" className="rounded-full pl-6 flex-row bg-gray-100 w-80 mt-2" placeholder='Pesquisar Produto'></input>
       </div>
-      <div className='flex flex-row justify-center overflow-auto'>
-      <CardProduto></CardProduto>
-      <CardProduto></CardProduto>
-      <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
-        <CardProduto></CardProduto>
+      <div className='flex sm:flex-row flex-col mt-4 justify-center items-center overflow-auto'>
+      {fetchPort? allcards(): <p className='bg-red-500 rounded-full px-2 mt-10 py-10 align-center'>Estamos fechados</p>}
+ 
+
       </div>
     </div>
   )
