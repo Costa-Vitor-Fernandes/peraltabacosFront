@@ -1,20 +1,37 @@
+import { useContext } from "react"
+import { TokenContext } from "./context"
+
 interface ProdutoNoCarrinhoProps {
     name:string,
     price:number,
-
 }
 
 const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
-    return (<div className="flex bg-gray-200 justify-between rounded p-3 m-4">
-        <div>produto nome:{props.name} de preco:{props.price}</div> 
-        <div className="bg-red-500 shadow-md px-1">x</div>
+    return (<div className="flex bg-gray-200 justify-between rounded shadow-md p-3 m-4">
+        <div>photo</div>
+        <div><p>{props.name}</p> 
+        <p>R$:{props.price}</p>
+        </div> 
+        <input type="button" value="-" />
+        <p>qntd</p>
+        <input type="button" value="+" />
+        <input className="bg-red-500 rounded-full px-2 my-4 text-center flex align-top" type="button" value="x" />
+
         </div>)
+
 }
 
 
 
 
 const Carrinho = () =>{
+
+
+    const {token} = useContext(TokenContext)
+
+    console.log(token, 'olha ele ai o token')
+
+
     return <div className="flex flex-col bg-white shadow-lg m-4 p-2 rounded">
     
         
