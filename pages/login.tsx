@@ -2,14 +2,10 @@ import axios from "axios"
 import Link from "next/link"
 import { useState, useContext } from "react"
 import { useRouter } from "next/router"
-import { TokenContext } from "./context"
-
-
 
 
 const Login = () =>{
 
-    const {token, setToken} = useContext(TokenContext)
     const [email,setEmail] = useState<string>('')
     const [password,setPassword] = useState<string>('')
 
@@ -26,15 +22,8 @@ const enter = () =>{
                 pathname: '/admin',
                 query: { adminStatus: true}
             }, '/admin')
-       
-            if(setToken){
-                setToken(res.data.token)
-            } 
         }
         if(!res.data.token) return 
-        if(setToken){
-            setToken(res.data.token)
-        }
         router.push('/')
     })
 }

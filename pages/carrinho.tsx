@@ -1,5 +1,3 @@
-import { useContext } from "react"
-import { TokenContext } from "./context"
 
 interface ProdutoNoCarrinhoProps {
     name:string,
@@ -27,9 +25,8 @@ const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
 const Carrinho = () =>{
 
 
-    const {token} = useContext(TokenContext)
 
-    console.log(token, 'olha ele ai o token')
+
 
 
     return <div className="flex flex-col bg-white shadow-lg m-4 p-2 rounded">

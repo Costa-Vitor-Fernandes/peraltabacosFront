@@ -1,9 +1,7 @@
 
 import { withRouter } from "next/router"
 import { WithRouterProps } from "next/dist/client/with-router"
-import { useContext } from "react"
-import { TokenContext } from "./context"
-import {getCookie} from 'cookies-next'
+
 
 
 const Admin = (props:WithRouterProps) =>{
