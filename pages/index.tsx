@@ -61,7 +61,7 @@ const Home: NextPage = () => {
 
   function setCategoria(){
     axios.get('http://localhost:3002/categories').then((res)=>{
-      console.log(res.data)
+      // console.log(res.data)
       const data = res.data
       setCategories(data.map((e:any,i:any,arr:any)=>arr[i].categoryName))
     })
@@ -70,7 +70,7 @@ const Home: NextPage = () => {
   function setProducts() {
     axios.get('http://localhost:3002/product').then((res)=>{
       const data = res.data
-      console.log(data, 'data')
+      // console.log(data, 'data')
       setImgSrc(data.map((e:any,i:any,arr:any)=>arr[i].photo))
       setProductName(data.map((e:any,i:any,arr:any)=>arr[i].productName))
       setOriginalPrice(data.map((e:any,i:any,arr:any)=>arr[i].originalPrice))

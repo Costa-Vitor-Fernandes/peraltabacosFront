@@ -14,14 +14,12 @@ const Login = () =>{
 
     const router = useRouter()
 const enter = () =>{
-    console.log(email, password)
-    
 
     axios.post('http://localhost:3002/login', {
         email: email,
         password: password,
-    }).then((res)=>{ 
-        console.log(res.data, 'resdatra')
+    }).then((res)=>{
+        // console.log(res, 'res')
         if(res.data.adminStatus){
             router.push({
                 pathname: '/admin',
@@ -29,18 +27,13 @@ const enter = () =>{
             }, '/admin')
             if(setToken){
                 setToken(res.data.token)
-                
             } 
         } 
 
         if(!res.data.token) return 
         if(setToken){
             setToken(res.data.token)
-        } 
-        setTimeout(()=>{
-            console.log(token, 'olah o token')
-        },2000)
-        // cookies token?
+        }
         router.push('/')
     })
 }
