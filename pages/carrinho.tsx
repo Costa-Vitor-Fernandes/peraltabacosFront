@@ -7,7 +7,7 @@ interface ProdutoNoCarrinhoProps {
 }
 
 const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
-    return (<div className="flex bg-gray-200 justify-between rounded p-3 m-4">
+    return (<div className="flex bg-gray-200 justify-between rounded shadow-md p-3 m-4">
         <div>photo</div>
         <div><p>{props.name}</p> 
         <p>R$:{props.price}</p>
@@ -15,7 +15,8 @@ const ProdutoNoCarrinho = (props:ProdutoNoCarrinhoProps) =>  {
         <input type="button" value="-" />
         <p>qntd</p>
         <input type="button" value="+" />
-        <div className="bg-red-500 shadow-md px-1">x</div>
+        <input className="bg-red-500 rounded-full px-2 my-4 text-center flex align-top" type="button" value="x" />
+
         </div>)
 
 }
